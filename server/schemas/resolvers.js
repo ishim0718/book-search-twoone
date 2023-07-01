@@ -2,19 +2,26 @@ const { User, Book } = require('../models');
 
 const resolvers = {
   Query: {
-    books: async () => {
-      return await Book.find({});
+    me: async (parent, args, context) => {
+        if(context.user) {
+            return User.findOne({ _id: context.user._id}).populate('books')
+        }
+    }
+  },
+  Mutation: {
+    login: async () => {
+
     },
-    book: async () => {
-      return await Book.findById(args.bookId);
+    addUser: async () => {
+
     },
-    users: async () => {
-      return await User.find({}).populate('savedBooks');
+    saveBook: async () => {
+
     },
-    user: async (parent, args) => {
-      return await User.findById(args.id).populate('savedBooks');
+    removeBook: async () => {
+
     },
-  }
+  },
 };
 
 module.exports = resolvers;
