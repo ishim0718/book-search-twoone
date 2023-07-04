@@ -9,8 +9,9 @@ const resolvers = {
             return User.findOne({ _id: context.user._id }).populate('books')
         }
         throw new AuthenticationError('You need to be logged in!');
-    }
+    },
   },
+
   Mutation: {
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
